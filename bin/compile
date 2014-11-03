@@ -18,6 +18,8 @@ LP_DIR=`cd $(dirname $0); cd ..; pwd`
 [ ! -d $BUILD_DIR ] && mkdir $BUILD_DIR
 [ ! -d $CACHE_DIR ] && mkdir $CACHE_DIR
 
+ls -al
+
 function error() {
   echo " !     $*"
   exit 1
@@ -56,7 +58,8 @@ function package_download() {
   location="$3"
 
   mkdir -p $location
-  package="http://s3pository.heroku.com/$engine/v$version/$engine-v$version-linux-x64.tar.gz"
+
+  package="http://nodejs.org/dist/v$version/$engine-v$version-linux-x64.tar.gz"
   echo " - downloading and extracting $engine from $package" | indent
   curl $package -s -o - | tar -zxf  - -C $location --strip 1
 }
@@ -76,7 +79,7 @@ if [ -f "${BUILD_DIR}/nodeversion" ]; then
 fi
 # add a warning if no version of node specified
 if [ "$requested_node_ver" == "" ]; then
-  requested_node_ver="0.10.26"
+  requested_node_ver="0.10.29"
   echo
   echo "No version of Node.js specified in nodeversion, using '${requested_node_ver}'" | indent
   echo
@@ -100,31 +103,12 @@ export npm_config_prefix="$VENDORED_MODULES"
 export CPATH="$INCLUDE_PATH"
 export CPPPATH="$INCLUDE_PATH"
 
-echo "-----> Creating package.json if you haven't already"
-[ -f app/package.json ] || tee app/package.json <<EOJSON
-{
-  "name": "Meteor-app",
-  "version": "0.0.0",
-  "engines": {
-    "node": "0.8.24"
-  }
-}
-EOJSON
 
-
-############################################
-# install meteorite
-############################################
-echo "-----> Installing meteorite with npm"
-
-run_npm "install meteorite -g"
-echo "Meteorite installed" | indent
-
-METEOR_BUILD_DIR="$BUILD_DIR/.meteor/heroku_build"
+METEOR_BUILD_DIR="$BUILD_DIR/.meteor/meteor_build"
 mkdir -p "$HOME"
 ############################################
-# install meteor + packages through mrt
-# bundle, and install into app/
+# install meteor + packages
+# and install into app/
 ############################################
 cd $BUILD_DIR
 echo "Installing meteor" | indent
@@ -134,14 +118,19 @@ VENDORED_METEOR="$(mktmpdir meteor)"
 curl https://install.meteor.com | HOME="$VENDORED_METEOR" /bin/sh | indent
 echo "Meteor installed" | indent
 
-echo "Installing packages" | indent
-HOME="$BUILD_DIR" mrt install | indent
-echo "Building meteor bundle" | indent
-HOME="$VENDORED_METEOR" "$VENDORED_METEOR"/.meteor/meteor bundle "$CACHE_DIR"/bundle.tar.gz 2>&1 | indent
+ls
 
+echo "Building meteor bundle" | indent
 mkdir -p "$METEOR_BUILD_DIR"/app
-tar -zxf "$CACHE_DIR"/bundle.tar.gz --strip-components 1 -C "$METEOR_BUILD_DIR"/app
-rm "$CACHE_DIR"/bundle.tar.gz
+HOME="$VENDORED_METEOR" "$VENDORED_METEOR"/.meteor/meteor build "$METEOR_BUILD_DIR"/app --directory 2>&1 | indent
+
+ls
+
+echo "Installing meteor bundle" | indent
+(cd "$METEOR_BUILD_DIR"/app/bundle/programs/server && HOME="$BUILD_DIR" $VENDORED_NODE/bin/node $VENDORED_NODE/bin/npm install 2>&1 | indent)
+
+ls
+
 ############################################
 
 ############################################
@@ -149,7 +138,7 @@ rm "$CACHE_DIR"/bundle.tar.gz
 ############################################
 echo "Setting up MONGO_URL in .profile.d"
 
-echo 'Looking for a service tagged "mongodb" in the following $VCAP_SERVICES...'
+echo 'Looking for a service tagged "nosql" in the following $VCAP_SERVICES...'
 echo $VCAP_SERVICES
 
 mkdir -p "$BUILD_DIR"/.profile.d
@@ -157,9 +146,13 @@ cat | tee "$BUILD_DIR"/.profile.d/mongo.sh <<EOF
   #!/bin/sh
 
   export ROOT_URL=\${ROOT_URL:-`ruby -e 'require "json"; puts "http://#{JSON.parse(ENV["VCAP_APPLICATION"])["application_uris"][0]}"'`}
-  export MONGO_URL=\${MONGO_URL:-\${MONGOHQ_URL:-`ruby -e "require 'json'; puts JSON.parse(ENV['VCAP_SERVICES']).find { |key,value| value[0]['tags'].include? 'mongodb' }[1][0]['credentials']['uri']"`}}
+  export MONGO_URL=\${MONGO_URL:-`ruby -e "require 'json'; puts JSON.parse(ENV['VCAP_SERVICES']).find { |key,value| value[0]['tags'].include? 'nosql' }[1][0]['credentials']['url']"`}
   export
 EOF
+
+echo 'Here we go...'
+
+printenv
 
 # vendor node into the slug
 PATH="$METEOR_BUILD_DIR/bin:$PATH"

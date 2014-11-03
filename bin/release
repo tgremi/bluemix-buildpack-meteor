@@ -4,7 +4,6 @@
 cat <<EOF
 ---
 addons:
-  - mongohq:sandbox
 default_process_types:
-  web: .meteor/heroku_build/bin/node .meteor/heroku_build/app/main.js
+  web: .meteor/meteor_build/bin/node .meteor/meteor_build/app/bundle/main.js
 EOF
