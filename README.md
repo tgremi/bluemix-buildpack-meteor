@@ -1,8 +1,8 @@
 # Cloud Foundry buildpack: Meteorite
 
-This buildpack is derived from [heroku-buildpack-meteorite](https://github.com/oortcloud/heroku-buildpack-meteorite) by [sweetleon](https://github.com/sweetleon).
+This buildpack is derived from [heroku-buildpack-meteorite](https://github.com/oortcloud/heroku-buildpack-meteorite) by [sweetleon](https://github.com/sweetleon) via [cloudfoundry-buildpack-meteorite](https://github.com/cloudfoundry-community/cloudfoundry-buildpack-meteorite).
 
-This buildpack enables you to easily deploy meteor apps to Cloud Foundry using [meteorite](https://github.com/cloudfoundry-community/cloudfoundry-buildpack-meteorite). It's easy to use different branches of meteor and any smart package you can lay your hands on.
+This buildpack enables you to easily deploy meteor apps to Cloud Foundry.
 
 ## Usage
 
