@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
 # bin/release <build-dir>
 
-echo "Starting release"
-
-printenv
-
-echo "Current directory:"
-ls -al
-
-
-
 cat <<EOF
 ---
 addons:
