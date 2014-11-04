@@ -124,7 +124,7 @@ echo "Installing meteor bundle" | indent
 (cd "$METEOR_BUILD_DIR"/app/bundle/programs/server && HOME="$BUILD_DIR" $VENDORED_NODE/bin/node $VENDORED_NODE/bin/npm install 2>&1 | indent)
 
 echo "Installing launcher" | indent
-(cd "$METEOR_BUILD_DIR"/app/bundle/programs/server && HOME="$BUILD_DIR" $VENDORED_NODE/bin/node $VENDORED_NODE/bin/npm install --save cf-launcher 2>&1 | indent)
+(cd "$METEOR_BUILD_DIR"/app/bundle/programs/server && HOME="$BUILD_DIR" $VENDORED_NODE/bin/node $VENDORED_NODE/bin/npm install cf-launcher 2>&1 | indent)
 
 ############################################
 
