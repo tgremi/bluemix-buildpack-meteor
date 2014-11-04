@@ -2,7 +2,7 @@
 
 This buildpack is derived from [heroku-buildpack-meteorite](https://github.com/oortcloud/heroku-buildpack-meteorite) by [sweetleon](https://github.com/sweetleon) via [cloudfoundry-buildpack-meteorite](https://github.com/cloudfoundry-community/cloudfoundry-buildpack-meteorite).
 
-This buildpack enables you to easily deploy meteor apps to Cloud Foundry.
+This buildpack enables you to easily deploy meteor apps to IBM Bluemix
 
 ## Usage
 
