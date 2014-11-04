@@ -18,8 +18,6 @@ LP_DIR=`cd $(dirname $0); cd ..; pwd`
 [ ! -d $BUILD_DIR ] && mkdir $BUILD_DIR
 [ ! -d $CACHE_DIR ] && mkdir $CACHE_DIR
 
-ls -al
-
 function error() {
   echo " !     $*"
   exit 1
@@ -118,18 +116,12 @@ VENDORED_METEOR="$(mktmpdir meteor)"
 curl https://install.meteor.com | HOME="$VENDORED_METEOR" /bin/sh | indent
 echo "Meteor installed" | indent
 
-ls
-
 echo "Building meteor bundle" | indent
 mkdir -p "$METEOR_BUILD_DIR"/app
 HOME="$VENDORED_METEOR" "$VENDORED_METEOR"/.meteor/meteor build "$METEOR_BUILD_DIR"/app --directory 2>&1 | indent
 
-ls
-
 echo "Installing meteor bundle" | indent
 (cd "$METEOR_BUILD_DIR"/app/bundle/programs/server && HOME="$BUILD_DIR" $VENDORED_NODE/bin/node $VENDORED_NODE/bin/npm install 2>&1 | indent)
-
-ls
 
 ############################################
 
@@ -151,8 +143,6 @@ cat | tee "$BUILD_DIR"/.profile.d/mongo.sh <<EOF
 EOF
 
 echo 'Here we go...'
-
-printenv
 
 # vendor node into the slug
 PATH="$METEOR_BUILD_DIR/bin:$PATH"
