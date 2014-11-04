@@ -5,5 +5,5 @@ cat <<EOF
 ---
 addons:
 default_process_types:
-  web: NODE_DEBUG=cluster,net,http,fs,tls,module,timers .meteor/meteor_build/app/bundle/programs/server/node_modules/.bin/launcher -- .meteor/meteor_build/bin/node .meteor/meteor_build/app/bundle/main.js
+  web: NODE_DEBUG=cluster,net,http,fs,tls,module,timers .meteor/meteor_build/bin/node .meteor/meteor_build/app/bundle/main.js
 EOF
