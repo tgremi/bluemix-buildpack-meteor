@@ -142,8 +142,6 @@ cat | tee "$BUILD_DIR"/.profile.d/mongo.sh <<EOF
   export
 EOF
 
-echo 'Here we go...'
-
 # vendor node into the slug
 PATH="$METEOR_BUILD_DIR/bin:$PATH"
 echo "-----> Vendoring node into slug"
