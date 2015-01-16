@@ -9,7 +9,7 @@ This buildpack enables you to easily deploy meteor apps to IBM Bluemix
 Create a CF app and bind it to a MongoDB service. Then run the following command in your terminal:
 
 ```
-cf push [APP_NAME] -b https://github.com/cloudfoundry-community/cloudfoundry-buildpack-meteorite.git
+cf push [APP_NAME] -b https://github.com/ind1go/bluemix-buildpack-meteor.git
 ```
 
 ## NOTES
