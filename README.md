@@ -12,6 +12,12 @@ Create a CF app and bind it to a MongoLab service. _N.B.: MongoLab, not mongodb.
 cf push [APP_NAME] -b https://github.com/ind1go/bluemix-buildpack-meteor.git
 ```
 
+Alternatively, you can specify the buildpack in your manifest.yml, if you have one:
+
+```
+  buildpack: https://github.com/ind1go/bluemix-buildpack-meteor.git
+```
+
 ## NOTES
 
 You can specify meteor settings by setting the `METEOR_SETTINGS` environment variable:
