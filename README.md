@@ -6,7 +6,7 @@ This buildpack enables you to easily deploy meteor apps to IBM Bluemix.
 
 ## Usage
 
-Create a CF app and bind it to a MongoDB service. Then run the following command in your terminal:
+Create a CF app and bind it to a MongoLab service. _N.B.: MongoLab, not mongodb._ Then run the following command in your terminal:
 
 ```
 cf push [APP_NAME] -b https://github.com/ind1go/bluemix-buildpack-meteor.git
@@ -20,7 +20,7 @@ You can specify meteor settings by setting the `METEOR_SETTINGS` environment var
 cf set-env [APP_NAME] METEOR_SETTINGS '{"herp":"derp"}'
 ```
 
-You need to have a service for MongoDB available and bound to the app. Alternatively, you can set `MONGO_URL` to point to your MongoDB outside of Bluemix with the command:
+You need to have a service for MongoLab available and bound to the app. Alternatively, you can set `MONGO_URL` to point to your MongoDB outside of Bluemix with the command:
 
 ```
 cf set-env [APP_NAME] MONGO_URL mongodb://[SERVER]:[PORT]/[DB] # substitute your configuration values
