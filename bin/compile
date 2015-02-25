@@ -116,7 +116,7 @@ VENDORED_METEOR="$(mktmpdir meteor)"
 curl -# https://install.meteor.com | HOME="$VENDORED_METEOR" /bin/sh | indent
 echo "Meteor installed" | indent
 
-echo "Ignoring build of mobile platforms"
+echo "Ignoring build of mobile platforms" | indent
 sed -i '/^ios$/d;/^android$/d' ./.meteor/platforms
 
 echo "Building meteor bundle" | indent
@@ -137,7 +137,7 @@ echo 'Looking for a service labelled "mongolab" in the following $VCAP_SERVICES.
 echo $VCAP_SERVICES
 
 mkdir -p "$BUILD_DIR"/.profile.d
-cat | tee "$BUILD_DIR"/.profile.d/mongo.sh <<EOF
+"$BUILD_DIR"/.profile.d/mongo.sh <<EOF
   #!/bin/sh
   
   MONGO_URL=`ruby -e "require 'json'; puts JSON.parse(ENV['VCAP_SERVICES']).find { |key,value| value[0]['label'].include? 'mongolab' }[1][0]['credentials']['uri']"`
