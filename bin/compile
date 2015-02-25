@@ -137,7 +137,7 @@ echo 'Looking for a service labelled "mongolab" in the following $VCAP_SERVICES.
 echo $VCAP_SERVICES
 
 mkdir -p "$BUILD_DIR"/.profile.d
-"$BUILD_DIR"/.profile.d/mongo.sh <<EOF
+cat  <<EOF "$BUILD_DIR"/.profile.d/mongo.sh
   #!/bin/sh
   
   MONGO_URL=`ruby -e "require 'json'; puts JSON.parse(ENV['VCAP_SERVICES']).find { |key,value| value[0]['label'].include? 'mongolab' }[1][0]['credentials']['uri']"`
