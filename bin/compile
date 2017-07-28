@@ -129,10 +129,7 @@ PASTA= pwd
 echo $PASTA
  
 
-
-
-echo "Ignoring build of mobile platforms"
-sed -i '/^ios$/d;/^android$/d' ./.meteor/platforms
+meteor --help
 
 echo "Building meteor bundle" | indent
 echo "$METEOR_BUILD_DIR <-------------------- METEOR_BUILD_DIR"
