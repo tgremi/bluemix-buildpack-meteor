@@ -137,6 +137,8 @@ sed -i '/^ios$/d;/^android$/d' ./.meteor/platforms
 echo "Building meteor bundle" | indent
 echo "$METEOR_BUILD_DIR <-------------------- METEOR_BUILD_DIR"
 mkdir -p "$METEOR_BUILD_DIR"/app
+echo "Passou do mkdir "
+echo "$VENDORED_METEOR" "$VENDORED_METEOR"/.meteor/meteor build "$METEOR_BUILD_DIR"/app --directory 2>&1 | indent
 HOME="$VENDORED_METEOR" "$VENDORED_METEOR"/.meteor/meteor build "$METEOR_BUILD_DIR"/app --directory 2>&1 | indent
 PASTA= pwd
 echo $PASTA
