@@ -122,7 +122,7 @@ VENDORED_METEOR="$(mktmpdir meteor)"
 echo "Olha aqui a pasta de instalacao: " | indent
 echo $VENDORED_METEOR | indent
 
-curl -# https://install.meteor.com | HOME="$VENDORED_METEOR" /bin/sh | echo $HOME |cp $HOME /usr/bin/meteor | indent 
+curl -# https://install.meteor.com | HOME="$VENDORED_METEOR" /bin/sh | echo $HOME |
 echo "Meteor installed" | indent
 echo "Caminho atual abaixo: "
 PASTA= pwd
@@ -139,9 +139,9 @@ echo "$METEOR_BUILD_DIR <-------------------- METEOR_BUILD_DIR"
 mkdir -p "$METEOR_BUILD_DIR"/app
 echo "Passou do mkdir "
 echo "$VENDORED_METEOR" "$VENDORED_METEOR"/.meteor/meteor build "$METEOR_BUILD_DIR"/app --directory 2>&1 | indent
-HOME="$VENDORED_METEOR" "$VENDORED_METEOR"/.meteor/meteor build "$METEOR_BUILD_DIR"/app --directory 2>&1 | indent
+HOME="$VENDORED_METEOR" "$VENDORED_METEOR"/.meteor/meteor build "$METEOR_BUILD_DIR"/app 
 PASTA= pwd
-echo $PASTA
+echo "$PASTA <----- Comando pwd "
 echo $HOME
 
 echo "Installing meteor bundle" | indent
