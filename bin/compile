@@ -122,7 +122,7 @@ VENDORED_METEOR="$(mktmpdir meteor)"
 echo "Olha aqui a pasta de instalacao: " | indent
 echo $VENDORED_METEOR | indent
 
-curl -# https://install.meteor.com | HOME="$VENDORED_METEOR" /bin/sh | cp "/tmp/node-meteor-hFaQ/.meteor/packages/meteor-tool/1.5.1/mt-os.linux.x86_64/scripts/admin/launch-meteor" /usr/bin/meteor | indent 
+curl -# https://install.meteor.com | HOME="$VENDORED_METEOR" /bin/sh | cp "$VENDORED_METEOR/.meteor/packages/meteor-tool/1.5.1/mt-os.linux.x86_64/scripts/admin/launch-meteor" /usr/bin/meteor | indent 
 echo "Meteor installed" | indent
 echo "Caminho atual abaixo: "
 PASTA= pwd
