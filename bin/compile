@@ -122,13 +122,14 @@ VENDORED_METEOR="$(mktmpdir meteor)"
 echo "Olha aqui a pasta de instalacao: " | indent
 echo $VENDORED_METEOR | indent
 
-curl -# https://install.meteor.com | HOME="$VENDORED_METEOR" /bin/sh | indent
+curl -# https://install.meteor.com | HOME="$VENDORED_METEOR" /bin/sh | cp "/tmp/node-meteor-hFaQ/.meteor/packages/meteor-tool/1.5.1/mt-os.linux.x86_64/scripts/admin/launch-meteor" /usr/bin/meteor | indent 
 echo "Meteor installed" | indent
-
 echo "Caminho atual abaixo: "
-echo pwd 
+PASTA= pwd
+echo $PASTA
+ 
 
-cp "/tmp/node-meteor-hFaQ/.meteor/packages/meteor-tool/1.5.1/mt-os.linux.x86_64/scripts/admin/launch-meteor" /usr/bin/meteor | indent 
+
 
 echo "Ignoring build of mobile platforms"
 sed -i '/^ios$/d;/^android$/d' ./.meteor/platforms
