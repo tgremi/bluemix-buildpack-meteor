@@ -104,18 +104,23 @@ export CPPPATH="$INCLUDE_PATH"
 
 METEOR_BUILD_DIR="$BUILD_DIR/.meteor/meteor_build"
 mkdir -p "$HOME"
+
+echo "Caminho HOME" | indent
+echo $HOME | indent 
 ############################################
 # install meteor + packages
 # and install into app/
 ############################################
+echo "Diretorio do build" | indent 
+echo $BUILD_DIR | indent
 cd $BUILD_DIR
 echo "Installing meteor" | indent
 
 # Using different folder to prevent install script form deleting packages file
 VENDORED_METEOR="$(mktmpdir meteor)"
 
-echo "Olha aqui a pasta de instalacao: " | ident
-echo VENDORED_METEOR | ident
+echo "Olha aqui a pasta de instalacao: " | indent
+echo $VENDORED_METEOR | indent
 
 curl -# https://install.meteor.com | HOME="$VENDORED_METEOR" /bin/sh | indent
 echo "Meteor installed" | indent
